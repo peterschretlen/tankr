@@ -1,9 +1,9 @@
 
-measurement.1 <- read.table("./data-raw/measurement_1.txt", quote="\"")
-measurement.2 <- read.table("./data-raw/measurement_2.txt", quote="\"")
+measurement_1 <- read.table("./data-raw/measurement_1.txt", quote="\"")
+measurement_2 <- read.table("./data-raw/measurement_2.txt", quote="\"")
 
-col.names <- c("rank", "measurement.id", "id", "measure")
-names(measurement.1) <- col.names
-names(measurement.2) <- col.names
+col.names <- c("rank", "measurement_id", "id", "measure")
+names(measurement_1) <- col.names
+names(measurement_2) <- col.names
 
-save(measurement.1, measurement.2, file = "./data/search_results.RData")
+save(measurement_1, measurement_2, file = "./data/search_results.RData")
