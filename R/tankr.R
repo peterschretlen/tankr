@@ -67,5 +67,4 @@ diff_wide <- function(comparison){
   #replace NA with blanks
   wide_form <- replace(wide_form, is.na(wide_form), "")
 
-
 }
