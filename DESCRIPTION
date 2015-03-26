@@ -11,4 +11,5 @@ Depends:
   reshape2,
   ggplot2,
   grid,
-  testthat
+  testthat,
+  scales
