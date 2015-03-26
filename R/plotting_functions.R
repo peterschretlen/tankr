@@ -8,7 +8,7 @@ diff_plot <- function(data) {
   
   background.color <- rgb(240,240,240,maxColorValue=255)
   
-  plot <- ggplot(data = plot_data, aes(x = measurement_id, y = rank)) + 
+  plot <- ggplot(data = plot_data, aes(x = measurement_id, y = -rank)) + 
     theme_bw() +
     theme(
       plot.background = element_rect(fill = "white", colour ="white")
