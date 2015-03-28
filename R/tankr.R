@@ -50,6 +50,61 @@ rank_diff_pair <- function( m1, m2 ){
   return( comparison )
 }
 
+#' Compare each pair of measurments in a series
+#' 
+#' The measurements are dataframe with columns:
+#' \itemize{
+#' \item rank: numeric value of ranking
+#' \item measurement_id: an identifier for the measurement. This can by a character string or number
+#' \item id: an identifier for the item holding the ranking
+#' \item measure: a description of the measurement, e.g. "non-fiction bestsellers" 
+#' }
+#' 
+#' @param m data frame with the measurements, ordered from first to last
+#' @return A dataframe with the changes in ranking between the two measurements.
+#' @examples
+#' todo
+#'
+rank_diff_series <- function( m ){
+  
+  measurement_series <- generate_diff_ids( m )
+
+  # TODO
+  
+  return(measurement_series)
+}
+
+# Internal - assign numbers for each diff that will be generated
+generate_diff_ids <- function( m ){
+  
+  measurement_series <- m
+  
+  # Each measurement is diff twice (with exception of first and last)
+  # Assign a number to the diff, to be used for grouping the pairs of measurements to diff
+  
+  measurement_factor <- factor( measurement_series$measurement_id )
+  
+  measurement_series$diff_id1 <- as.numeric( measurement_factor )
+  measurement_series$diff_id2 <- as.numeric( measurement_factor ) - 1
+  
+  even <- ( measurement_series$diff_id1 %% 2 ) == 0
+  odd <- ( measurement_series$diff_id2 %% 2 ) == 1
+  highest_id <- max( measurement_series$diff_id1 )
+  
+  measurement_series <- within(measurement_series, {
+    
+    diff_id1[ even ] <- diff_id1[ even ] - 1
+    diff_id2[ odd ] <- diff_id2[ odd ] + 1
+    
+    diff_id1[ diff_id1 == highest_id ] <- NA
+    diff_id2[ diff_id2 == highest_id ] <- NA
+    diff_id2[ diff_id2 == 0 ] <- NA
+    
+  })
+  
+}
+
+
 #' Generate a wide version of ranking comparison.
 #' 
 #' This form is useful when viewing changes in ranking in a table view. 
