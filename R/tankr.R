@@ -69,10 +69,31 @@ rank_diff_series <- function( m ){
   
   measurement_series <- generate_diff_ids( m )
 
-  # TODO
+  #Group by diff_ids
+  diff_set_1 <- ddply( measurement_series, .(diff_id1), function(x) rank_diff_pair_df(x,1) )
+  diff_set_2 <- ddply( measurement_series, .(diff_id2), function(x) rank_diff_pair_df(x,2) )
   
-  return(measurement_series)
+  names(diff_set_1)[1] <- "set_id"
+  names(diff_set_2)[1] <- "set_id"
+  
+  diff_series <- rbind(diff_set_1, diff_set_2)
+  
+  return(diff_series)
 }
+
+rank_diff_pair_df <- function( df, id ){
+  
+  set_id = unique( df[[paste('diff_id', id, sep='')]] )
+  if(is.na(set_id)){
+    return(data.frame())
+  }
+  
+  #split the data frame by measurement_id
+  measurements <- split( df, df$measurement_id )
+  return( rank_diff_pair( measurements[[1]], measurements[[2]] ))
+  
+}
+
 
 # Internal - assign numbers for each diff that will be generated
 generate_diff_ids <- function( m ){
