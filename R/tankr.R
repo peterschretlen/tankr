@@ -69,9 +69,12 @@ rank_diff_series <- function( m ){
   
   measurement_series <- generate_diff_ids( m )
 
+  #convert factors to strings
+  measurement_series$measurement_id <- as.character(measurement_series$measurement_id)
+  
   #Group by diff_ids
-  diff_set_1 <- ddply( measurement_series, .(diff_id1), function(x) rank_diff_pair_df(x,1) )
-  diff_set_2 <- ddply( measurement_series, .(diff_id2), function(x) rank_diff_pair_df(x,2) )
+  diff_set_1 <- ddply( measurement_series, .(diff_id1), function(x) rank_diff_pair_df(x,"1"), .progress = "text" )
+  diff_set_2 <- ddply( measurement_series, .(diff_id2), function(x) rank_diff_pair_df(x,"2"), .progress = "text" )
   
   names(diff_set_1)[1] <- "set_id"
   names(diff_set_2)[1] <- "set_id"
@@ -83,7 +86,7 @@ rank_diff_series <- function( m ){
 
 rank_diff_pair_df <- function( df, id ){
   
-  set_id = unique( df[[paste('diff_id', id, sep='')]] )
+  set_id <- unique( df[[paste('diff_id', id, sep='')]] )
   if(is.na(set_id)){
     return(data.frame())
   }
