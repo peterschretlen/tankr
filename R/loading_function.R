@@ -8,7 +8,12 @@ load_all_measurements <- function() {
 
 load_measurement <- function( path ) {
   
-  measurement <- read.table("./data-raw/measurement_2.txt", quote="\"")
+  info = file.info( path )
+  if(info$size == 0) {
+    return( data.frame() )
+  }
+  
+  measurement <- read.table(path, quote="\"")
   names( measurement ) <- c("rank", "measurement_id", "id", "measure")
 
   return( measurement )
