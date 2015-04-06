@@ -30,7 +30,7 @@ rank_diff_pair <- function( m1, m2 ){
   
   compare <- m.pair.long %>% 
               group_by( measure ) %>% 
-              mutate( new.rank.relative.old = rank-match( m1, m2 )) %>%
+              mutate( new.rank.relative.old = rank - match( m1, m2 )) %>%
               mutate( old.rank.relative.new = match( m2, m1 ) - rank ) %>%
               mutate( rm = is.na( new.rank.relative.old )) %>% 
               mutate( add = is.na( old.rank.relative.new ))
@@ -80,6 +80,8 @@ rank_diff_series <- function( m ){
   names(diff_set_2)[1] <- "set_id"
   
   diff_series <- rbind(diff_set_1, diff_set_2)
+  
+  diff_series <- diff_series %>% arrange(set_id)
   
   return(diff_series)
 }
