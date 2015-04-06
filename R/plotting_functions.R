@@ -9,8 +9,7 @@ diff_plot <- function(data, debug = F ) {
   plot <- ggplot(data = plot_data, aes(x = measurement_id, y = -rank)) + 
     adjust_theme( debug ) +
     scale_x_discrete(expand=c(0.1, 0)) +
-    
-    geom_line( aes( group = id, colour = sign(slope) * sqrt( abs(slope) ), alpha=( 0.5 + abs(slope) / 72) ), size=1) +
+    geom_line( aes( group = id, colour = sign(slope) * sqrt( abs(slope) ), alpha = 1 ), size = 1) +
     geom_point( aes(fill = transient), shape = 21, color="transparent" , size = 2 ) +
     scale_color_gradient2( limits = c(-6, 6), mid=get_background_color(), high=muted("blue"), low=muted("red"))  +
     scale_fill_manual( values=c("transparent","black") )
