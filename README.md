@@ -16,4 +16,4 @@ This visual encoding can give you a sense of ranking changes even when the view 
 
 ![example compact plot](/img/example_small_scale.png?raw=true)
 
-This view shows the top 50 results of 9 search terms over 10 days
+This view shows the top 50 results of 12 search terms over 10 days ( ~6000 data points )
